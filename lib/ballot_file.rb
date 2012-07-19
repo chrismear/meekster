@@ -12,6 +12,8 @@ class BallotFile
     elsif options[:file]
       @file = options[:file]
     end
+
+    @read = false
   end
 
   def read!
@@ -39,6 +41,7 @@ class BallotFile
       end
 
       ballot_line = @file.gets
+
     end
 
     @candidate_count.times do |i|
@@ -47,5 +50,11 @@ class BallotFile
       candidate_name = candidate_name.match(/\A\"(.*)\"\Z/)[1]
       @candidates[i].name = candidate_name
     end
+
+    @read = true
+  end
+
+  def read?
+    !!@read
   end
 end

@@ -5,6 +5,13 @@ class Election
   attr_accessor :ballots, :candidates, :seats
 
   def initialize(parameters={})
+    if parameters[:ballot_file]
+      bf = parameters[:ballot_file]
+      bf.read! unless bf.read?
+      self.ballots = bf.ballots
+      self.candidates = bf.candidates
+      self.seats = bf.seats
+    end
     if parameters[:ballots]
       self.ballots = parameters[:ballots]
     end
@@ -15,6 +22,8 @@ class Election
       self.seats = parameters[:seats]
     end
   end
+
+
 
   def run!
     raise RuntimeError, "ballots not found" unless ballots
@@ -58,5 +67,19 @@ class Election
     end
 
     candidates
+  end
+
+  def results
+    output = ""
+    elected_candidates = candidates.select{|c| c.state == :elected}.sort{|a, b| a.votes <=> b.votes}
+    defeated_candidates = candidates.select{|c| c.state == :defeated}.sort{|a, b| a.name <=> b.name}
+
+    elected_candidates.each do |ec|
+      output << "Elected: #{ec.name} (#{ec.votes.to_f})\n"
+    end
+    output << "Defeated: "
+    output << defeated_candidates.map{|dc| dc.name}.join(', ')
+    output << "\n"
+    output
   end
 end

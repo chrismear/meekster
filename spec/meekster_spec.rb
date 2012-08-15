@@ -143,4 +143,9 @@ describe "meekster" do
     end
   end
 
+  it "calculates the final quota"
+  it "calculates the final number of votes"
+  it "calculates the final residual"
+  it "calculates the final surplus"
+
 end

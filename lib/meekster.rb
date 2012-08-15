@@ -1,4 +1,4 @@
-class Meekster
+module Meekster
 end
 
 require 'meekster/ballot'

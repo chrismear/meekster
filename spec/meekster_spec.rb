@@ -76,4 +76,36 @@ describe "meekster" do
     end
   end
 
+  # http://code.google.com/p/droop/wiki/Droop
+  describe "sample elections from Droop" do
+    describe "42" do
+      before(:all) do
+        @election = Meekster::Election.new(
+          :ballot_file => Meekster::BallotFile.new(
+            :filename => File.expand_path("ballot_files/42.blt", File.dirname(__FILE__))
+          )
+        )
+        @election.run!
+      end
+
+      it "elects the correct candidates" do
+        @election.candidates.find{|c| c.name == 'Castor'}.state.should == :elected
+        @election.candidates.find{|c| c.name == 'Castor'}.votes.should be_within(0.000000001).of(2.000000004)
+
+        @election.candidates.find{|c| c.name == 'Helen'}.state.should == :elected
+        @election.candidates.find{|c| c.name == 'Helen'}.votes.should be_within(0.000000001).of(2.000000000)
+      end
+
+      it "rejects the correct candidates" do
+        @election.candidates.find{|c| c.name == 'Pollux'}.state.should == :defeated
+      end
+
+      it "calculates votes for the rejected candidates correctly" do
+        pending('Need to fix final round') do
+          @election.candidates.find{|c| c.name == 'Pollux'}.votes.should be_within(0.000000001).of(0.000000000)
+        end
+      end
+    end
+  end
+
 end

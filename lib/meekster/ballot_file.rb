@@ -20,7 +20,7 @@ class Meekster::BallotFile
     @file.rewind
 
     @ballots = []
-    
+
     candidates_and_seats = @file.gets
     @candidate_count, @seats = candidates_and_seats.split(' ').map{|n| n.to_i}
 
@@ -30,7 +30,7 @@ class Meekster::BallotFile
 
     until ballot_line.match(/^0/)
       line_atoms = ballot_line.split(' ')
-      
+
       count = line_atoms.delete_at(0).to_i
       line_atoms.delete_at(-1)
 

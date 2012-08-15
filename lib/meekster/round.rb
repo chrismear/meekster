@@ -81,7 +81,7 @@ class Meekster::Round
   def distribute_votes!
     ballots.each do |ballot|
       ballot.weight = BigDecimal('1')
-      
+
       ballot.ranking.each do |ranked_candidate|
 
         weight_times_keep_factor = ballot.weight * ranked_candidate.keep_factor

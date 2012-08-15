@@ -106,6 +106,41 @@ describe "meekster" do
         end
       end
     end
+
+    describe "Anderston-City-2007" do
+      before(:all) do
+        @election = Meekster::Election.new(
+          :ballot_file => Meekster::BallotFile.new(
+            :filename => File.expand_path("ballot_files/Anderston-City-2007.blt", File.dirname(__FILE__))
+          )
+        )
+        @election.run!
+      end
+
+      it "elects the correct candidates" do
+        @election.candidates.find{|c| c.name == 'Nina Baker'}.state.should == :elected
+        @election.candidates.find{|c| c.name == 'Nina Baker'}.votes.should be_within(0.00001).of(1298.307340419)
+
+        @election.candidates.find{|c| c.name == 'Philip Braat'}.state.should == :elected
+        @election.candidates.find{|c| c.name == 'Philip Braat'}.votes.should be_within(0.00001).of(1297.105615751)
+
+        @election.candidates.find{|c| c.name == 'Craig MacKay'}.state.should == :elected
+        @election.candidates.find{|c| c.name == 'Craig MacKay'}.votes.should be_within(0.00001).of(1280.501790024)
+
+        @election.candidates.find{|c| c.name == 'Gordon Matheson'}.state.should == :elected
+        @election.candidates.find{|c| c.name == 'Gordon Matheson'}.votes.should be_within(0.00001).of(1325.225745098)
+      end
+
+      it "rejects the correct candidates" do
+        ['Erin Boyle', 'Dave Holladay', 'Akhtar Khan', 'Ann Laird', 'Peter Murray'].each do |name|
+          @election.candidates.find{|c| c.name == name}.state.should == :defeated
+        end
+      end
+
+      it "calculates votes for the rejected candidates correctly" do
+        pending('Need to fix final round')
+      end
+    end
   end
 
 end

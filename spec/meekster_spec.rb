@@ -1,18 +1,18 @@
-require './meekster'
+require File.expand_path("../lib/meekster", File.dirname(__FILE__))
 
 describe "meekster" do
 
   describe "simplest election" do
     it "elects the candidate" do
-      c1 = Candidate.new
+      c1 = Meekster::Candidate.new
       c1.name = "Adam"
       candidates = [c1]
 
-      b1 = Ballot.new
+      b1 = Meekster::Ballot.new
       b1.ranking = [c1]
       ballots = [b1]
 
-      election = Election.new
+      election = Meekster::Election.new
       election.candidates = candidates
       election.ballots = ballots
       election.seats = 1
@@ -26,37 +26,37 @@ describe "meekster" do
   describe "wikipedia example STV election" do
     before(:each) do
       candidates = [
-        @oranges = Candidate.new('Oranges'),
-        @pears = Candidate.new('Pears'),
-        @chocolate = Candidate.new('Chocolate'),
-        @strawberries = Candidate.new('Stawberries'),
-        @sweets = Candidate.new('Sweets')
+        @oranges = Meekster::Candidate.new('Oranges'),
+        @pears = Meekster::Candidate.new('Pears'),
+        @chocolate = Meekster::Candidate.new('Chocolate'),
+        @strawberries = Meekster::Candidate.new('Stawberries'),
+        @sweets = Meekster::Candidate.new('Sweets')
       ]
 
       ballots = [
-        Ballot.new([@oranges]),
-        Ballot.new([@oranges]),
-        Ballot.new([@oranges]),
-        Ballot.new([@oranges]),
-        Ballot.new([@pears, @oranges]),
-        Ballot.new([@pears, @oranges]),
-        Ballot.new([@chocolate, @strawberries]),
-        Ballot.new([@chocolate, @strawberries]),
-        Ballot.new([@chocolate, @strawberries]),
-        Ballot.new([@chocolate, @strawberries]),
-        Ballot.new([@chocolate, @strawberries]),
-        Ballot.new([@chocolate, @strawberries]),
-        Ballot.new([@chocolate, @strawberries]),
-        Ballot.new([@chocolate, @strawberries]),
-        Ballot.new([@chocolate, @sweets]),
-        Ballot.new([@chocolate, @sweets]),
-        Ballot.new([@chocolate, @sweets]),
-        Ballot.new([@chocolate, @sweets]),
-        Ballot.new([@strawberries]),
-        Ballot.new([@sweets])
+        Meekster::Ballot.new([@oranges]),
+        Meekster::Ballot.new([@oranges]),
+        Meekster::Ballot.new([@oranges]),
+        Meekster::Ballot.new([@oranges]),
+        Meekster::Ballot.new([@pears, @oranges]),
+        Meekster::Ballot.new([@pears, @oranges]),
+        Meekster::Ballot.new([@chocolate, @strawberries]),
+        Meekster::Ballot.new([@chocolate, @strawberries]),
+        Meekster::Ballot.new([@chocolate, @strawberries]),
+        Meekster::Ballot.new([@chocolate, @strawberries]),
+        Meekster::Ballot.new([@chocolate, @strawberries]),
+        Meekster::Ballot.new([@chocolate, @strawberries]),
+        Meekster::Ballot.new([@chocolate, @strawberries]),
+        Meekster::Ballot.new([@chocolate, @strawberries]),
+        Meekster::Ballot.new([@chocolate, @sweets]),
+        Meekster::Ballot.new([@chocolate, @sweets]),
+        Meekster::Ballot.new([@chocolate, @sweets]),
+        Meekster::Ballot.new([@chocolate, @sweets]),
+        Meekster::Ballot.new([@strawberries]),
+        Meekster::Ballot.new([@sweets])
       ]
 
-      election = Election.new
+      election = Meekster::Election.new
       election.candidates = candidates
       election.ballots = ballots
       election.seats = 3

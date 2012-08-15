@@ -1,6 +1,6 @@
 require 'bigdecimal'
 
-class Candidate
+class Meekster::Candidate
   STATES = [:hopeful, :withdrawn, :elected, :defeated]
 
   attr_accessor :name, :state, :keep_factor, :votes

@@ -1,15 +1,15 @@
-require File.expand_path("../lib/ballot_file", File.dirname(__FILE__))
+require File.expand_path("../lib/meekster/ballot_file", File.dirname(__FILE__))
 
-describe BallotFile do
+describe Meekster::BallotFile do
   it "can be initialized with a file" do
     @file = File.open(File.expand_path('ballot_files/42.blt', File.dirname(__FILE__)), 'r')
-    expect {BallotFile.new(:file => @file)}.to_not raise_error
+    expect {Meekster::BallotFile.new(:file => @file)}.to_not raise_error
   end
 
   describe "reading" do
     before(:each) do
       file = File.open(File.expand_path('ballot_files/42.blt', File.dirname(__FILE__)), 'r')
-      @bf = BallotFile.new(:file => file)
+      @bf = Meekster::BallotFile.new(:file => file)
     end
 
     it "reads the ballot file" do

@@ -1,7 +1,7 @@
 require File.expand_path('ballot', File.dirname(__FILE__))
 require File.expand_path('candidate', File.dirname(__FILE__))
 
-class BallotFile
+class Meekster::BallotFile
   attr_accessor :candidates, :ballots, :seats
 
   def initialize(options={})
@@ -24,7 +24,7 @@ class BallotFile
     candidates_and_seats = @file.gets
     @candidate_count, @seats = candidates_and_seats.split(' ').map{|n| n.to_i}
 
-    @candidates = Array.new(@candidate_count){Candidate.new}
+    @candidates = Array.new(@candidate_count){Meekster::Candidate.new}
 
     ballot_line = @file.gets
 
@@ -37,7 +37,7 @@ class BallotFile
       ranking = line_atoms.map{|id| @candidates[id.to_i - 1]}
 
       count.times do
-        @ballots << Ballot.new(ranking)
+        @ballots << Meekster::Ballot.new(ranking)
       end
 
       ballot_line = @file.gets

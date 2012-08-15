@@ -1,6 +1,6 @@
 require 'bigdecimal'
 
-class Round
+class Meekster::Round
   attr_accessor :ballots, :candidates, :seats, :omega, :quota, :surplus
 
   def initialize(parameters={})
@@ -85,7 +85,7 @@ class Round
       ballot.ranking.each do |ranked_candidate|
 
         weight_times_keep_factor = ballot.weight * ranked_candidate.keep_factor
-        weight_times_keep_factor = Round.round_up_to_nine_decimal_places(weight_times_keep_factor)
+        weight_times_keep_factor = Meekster::Round.round_up_to_nine_decimal_places(weight_times_keep_factor)
 
         ranked_candidate.votes += weight_times_keep_factor
 
@@ -179,9 +179,9 @@ class Round
   def update_keep_factors!
     log "Updating keep factors:"
     elected_candidates = candidates.select{|c| c.state == :elected}
-    quota_rounded = Round.round_up_to_nine_decimal_places(quota)
+    quota_rounded = Meekster::Round.round_up_to_nine_decimal_places(quota)
     elected_candidates.each do |elected_candidate|
-      elected_candidate_votes_rounded = Round.round_up_to_nine_decimal_places(elected_candidate.votes)
+      elected_candidate_votes_rounded = Meekster::Round.round_up_to_nine_decimal_places(elected_candidate.votes)
       new_keep_factor = elected_candidate.keep_factor * quota_rounded
       new_keep_factor = new_keep_factor / elected_candidate_votes_rounded
       log "  Candidate #{elected_candidate.name}: #{elected_candidate.keep_factor.to_f} -> #{new_keep_factor.to_f}"

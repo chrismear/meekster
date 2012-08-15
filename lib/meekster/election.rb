@@ -1,7 +1,7 @@
 require 'bigdecimal'
 require File.expand_path('../round', __FILE__)
 
-class Election
+class Meekster::Election
   attr_accessor :ballots, :candidates, :seats
 
   def initialize(parameters={})
@@ -40,7 +40,7 @@ class Election
 
     while true do
 
-      round = Round.new(
+      round = Meekster::Round.new(
         :ballots => ballots,
         :candidates => candidates,
         :seats => seats,
